@@ -24,8 +24,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}" />
-                            <GridViewColumn Header="Ip" DisplayMemberBinding="{Binding Ip}" Width="100" />
-                            <GridViewColumn Header="Uv" DisplayMemberBinding="{Binding UVF}" Width="100" />
+                            <GridViewColumn Header="Ip" DisplayMemberBinding="{Binding Ip}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -60,7 +59,9 @@
                             <Label Content="Add Manual" FontSize="15" FontWeight="Bold"/>
                             <StackPanel Margin="2"  Grid.IsSharedSizeScope="True">
                                 <TextBox Margin="2" 
-                                         Text="{Binding ManualDeviceInfo.Ip}" Height="40"/>
+                                         Text="{Binding ManualDeviceInfo.Ip}"/>
+                                <TextBox Margin="2" 
+                                         Text="{Binding ManualDeviceInfo.Port}"/>
                                 <ComboBox Margin="2"
                                             ItemsSource="{Binding PortTypes}" 
                                             SelectedItem="{Binding SelectedPort}"
@@ -88,8 +89,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}" />
-                                <GridViewColumn Header="Ip" DisplayMemberBinding="{Binding Ip}" Width="100" />
-                                <GridViewColumn Header="Uv" DisplayMemberBinding="{Binding UVF}" Width="100" />
+                                <GridViewColumn Header="Ip" DisplayMemberBinding="{Binding Ip}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

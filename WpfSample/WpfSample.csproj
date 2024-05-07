@@ -21,4 +21,10 @@
     <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.9.0.20240103" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="OpenCvSharpExtern.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

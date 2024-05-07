@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{181A
 	ProjectSection(SolutionItems) = preProject
 		Library\CommunityToolkit.Mvvm.dll = Library\CommunityToolkit.Mvvm.dll
 		Library\KIRSharp.dll = Library\KIRSharp.dll
+		Library\OpenCvSharpExtern.dll = Library\OpenCvSharpExtern.dll
 	EndProjectSection
 EndProject
 Global

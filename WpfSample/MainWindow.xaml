@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="450" Width="800">
+        Title="LK SVS SDK" Height="450" Width="800">
     <Grid>
         <DockPanel>
             <preview:PreviewPanel/>
