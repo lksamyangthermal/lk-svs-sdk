@@ -25,7 +25,10 @@ namespace WpfSample.ViewModel
         [RelayCommand]
         private async Task Disconnect()
         {
+            if (DeviceHandler.SelectedDevice == null) return;
+
             await DeviceHandler.SelectedDevice.DisposeAsync();
+            DeviceHandler.SelectedDevice = null;
         }
 
         [RelayCommand]
@@ -33,6 +36,8 @@ namespace WpfSample.ViewModel
         {
             try
             {
+                if (DeviceHandler.SelectedDevice == null) return;
+
                 var udpCamera = (UdpCamera)DeviceHandler.SelectedDevice.Camera;
                 await udpCamera.RunShutterManually();
             }

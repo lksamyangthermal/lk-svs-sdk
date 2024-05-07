@@ -89,6 +89,7 @@ namespace WpfSample.ViewModel
         {
             try
             {
+                if (DeviceHandler.SelectedDevice != null) return;
                 if (!IsValidIp(info.Ip)) return;
                 if (IsRegisteredInfo(info)) return;
 
@@ -115,6 +116,7 @@ namespace WpfSample.ViewModel
         {
             try
             {
+                await Task.Delay(5000);
                 var broadcast = Broadcast.Instance;
                 while (broadcast != null)
                 {

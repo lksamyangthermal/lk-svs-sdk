@@ -29,7 +29,7 @@ namespace WpfSample.Model.Handler
         private int _selectedFpsCmos = 2;
 
         [ObservableProperty]
-        private Device _selectedDevice;
+        private Device? _selectedDevice = null;
 
         private DeviceHandler()
         {
