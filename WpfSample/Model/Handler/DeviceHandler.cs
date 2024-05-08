@@ -15,7 +15,7 @@ namespace WpfSample.Model.Handler
 {
     public partial class DeviceHandler : ObservableObject
     {
-        private static DeviceHandler _deviceHandler = new DeviceHandler();
+        private static DeviceHandler _deviceHandler = new ();
         public static DeviceHandler Instance { get => _deviceHandler; }
 
         [ObservableProperty]
@@ -50,21 +50,9 @@ namespace WpfSample.Model.Handler
             }
         }
 
-        public void AddDevice(Info info)
+        public void ConnectDevice(Info info)
         {
-            Device newDevice = new Device(CreateCamera(info));
-
-            string[] ipParts = info.Ip.Split('.');
-            if (string.IsNullOrEmpty(info.SiteName))
-            {
-                newDevice.Camera.Info.SiteName = ipParts[2];
-            }
-            if (string.IsNullOrEmpty(info.CustomName))
-            {
-                newDevice.Camera.Info.CustomName = ipParts[3];
-            }
-            Devices.Add(newDevice);
-            SelectedDevice = newDevice;
+            SelectedDevice = new Device(CreateCamera(info));
         }
     }
 }

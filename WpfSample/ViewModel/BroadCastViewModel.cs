@@ -16,15 +16,11 @@ namespace WpfSample.ViewModel
         [ObservableProperty] 
         private DeviceHandler _deviceHandler = DeviceHandler.Instance;
         [ObservableProperty]
-        private Broadcast.Info _selectedRegisteredDeviceInfo;
-        [ObservableProperty]
         private Broadcast.Info _selectedDeviceInfo;
         [ObservableProperty]
         private Broadcast.Info _manualDeviceInfo = new();
         [ObservableProperty]
         private ObservableCollection<Broadcast.Info> _broadcastDeviceInfos = new ();
-        [ObservableProperty]
-        private ObservableCollection<Broadcast.Info> _registeredDeviceInfos = new ();
 
         public enum PortType
         {
@@ -55,7 +51,7 @@ namespace WpfSample.ViewModel
         }
 
         [RelayCommand]
-        private async Task AddDeviceManual()
+        private async Task ConnectDeviceManual()
         {
             switch (SelectedPort)
             {
@@ -73,42 +69,43 @@ namespace WpfSample.ViewModel
                     ManualDeviceInfo.Name = CameraName.Dummy;
                     break;
             }
-            await AddDevice(new Info(ManualDeviceInfo));
+            await ConnectDevice(new Info(ManualDeviceInfo));
         }
 
         [RelayCommand]
-        private async Task AddSelectedDevice()
+        private async Task ConnectSelectedDevice()
         {
             if(SelectedDeviceInfo != null)
             {
-                await AddDevice(SelectedDeviceInfo);
+                await ConnectDevice(SelectedDeviceInfo);
             }
         }
 
-        private async Task AddDevice(Info info)
+        private async Task ConnectDevice(Info info)
         {
             try
             {
-                if (DeviceHandler.SelectedDevice != null) return;
+                if (DeviceHandler.SelectedDevice != null)
+                {
+                    Debug.WriteLine("Camera already connected");
+                    return;
+                }
+
                 if (!IsValidIp(info.Ip)) return;
-                if (IsRegisteredInfo(info)) return;
 
                 try
                 {
-                    RegisteredDeviceInfos.Add(info);
-                    DeviceHandler.AddDevice(info);
-                    RemoveBroadcastInfo(info);
-                    Debug.WriteLine("Save Device Info: " + info.Ip);
+                    DeviceHandler.ConnectDevice(info);
 
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("AddDevice", $"Cannot add device: {ex.Message}");
+                    Debug.WriteLine("ConnectDevice", $"Cannot connect device: {ex.Message}");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("AddDevice: " + ex.Message);
+                Debug.WriteLine("ConnectDevice: " + ex.Message);
             }
         }
 
@@ -116,28 +113,19 @@ namespace WpfSample.ViewModel
         {
             try
             {
-                await Task.Delay(5000);
                 var broadcast = Broadcast.Instance;
                 while (broadcast != null)
                 {
                     var newInfo = await broadcast.FindCamera();
                     if (newInfo != null)
                     {
-                        if (!IsBroadcastInfo(newInfo)) 
+                        if (!IsBroadcastInfo(newInfo))
                         {
-                            if(!IsRegisteredInfo(newInfo))
-                            {
-                                BroadcastDeviceInfos.Add(newInfo);
-                            }
-                        }
-                        else
-                        {
-                            if (IsRegisteredInfo(newInfo))
-                            {
-                                RemoveBroadcastInfo(newInfo);
-                            }
+                            BroadcastDeviceInfos.Add(newInfo);
                         }
                     }
+
+                    await Task.Delay(10);
                 }
             }
             catch (Exception ex)
@@ -161,44 +149,23 @@ namespace WpfSample.ViewModel
             }
         }
 
-        private bool IsRegisteredInfo(Info info)
-        {
-            foreach (var registeredInfo in RegisteredDeviceInfos)
-            {
-                if (string.Compare(info.Ip, registeredInfo.Ip) == 0)
-                {
-                    //LogHandler.Instance.ShowDialogAndLog("Device info", "Duplicate IP");
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private bool IsBroadcastInfo(Info info)
         {
-            foreach (var broadcastInfo in BroadcastDeviceInfos)
+            try
             {
-                if (string.Compare(info.Ip, broadcastInfo.Ip) == 0)
+                foreach (var broadcastInfo in BroadcastDeviceInfos.ToList())
                 {
-                    return true;
+                    if (string.Compare(info.Ip, broadcastInfo.Ip) == 0)
+                    {
+                        return true;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
             }
             return false;
-        }
-
-        private void RemoveBroadcastInfo(Info info)
-        {
-            foreach (var broadcastInfo in BroadcastDeviceInfos)
-            {
-                if (string.Compare(info.Ip, broadcastInfo.Ip) == 0)
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        BroadcastDeviceInfos.Remove(broadcastInfo);
-                    });
-                    break;
-                }
-            }
         }
     }
 }

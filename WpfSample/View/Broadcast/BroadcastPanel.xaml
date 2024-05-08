@@ -10,17 +10,59 @@
         <viewmodel:BroadCastViewModel />
     </UserControl.DataContext>
 
-    <StackPanel>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Right">
+            <Border Margin="5" BorderBrush="#3D3D3D" BorderThickness="1" >
+                <DockPanel MinWidth="300" >
+                    <Button Margin="5" Height="30" Content="Connect Selected Device" Command="{Binding ConnectSelectedDeviceCommand}" DockPanel.Dock="Bottom"/>
+                    <StackPanel Orientation="Vertical" Margin="3">
+                        <Border>
+                            <StackPanel Margin="2" Grid.IsSharedSizeScope="True">
+                                <Label Content="Selected Device" FontSize="15" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding SelectedDeviceInfo.Version}"/>
+                                <TextBlock Text="{Binding SelectedDeviceInfo.Ip}"/>
+                                <TextBlock Text="{Binding SelectedDeviceInfo.NetMask}"/>
+                                <TextBlock Text="{Binding SelectedDeviceInfo.Port}"/>
+                                <TextBlock Text="{Binding SelectedDeviceInfo.Gateway}"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+            <Border Margin="5" BorderBrush="#3D3D3D" BorderThickness="1" >
+                <DockPanel MinWidth="300">
+                    <Button Margin="5" Height="30" Content="Connect Device" Command="{Binding ConnectDeviceManualCommand}" DockPanel.Dock="Bottom"/>
+                    <StackPanel Orientation="Vertical" Margin="3">
+                        <Label Content="Add Manual" FontSize="15" FontWeight="Bold"/>
+                        <StackPanel Margin="2"  Grid.IsSharedSizeScope="True">
+                            <TextBox Margin="2" 
+                                     Text="{Binding ManualDeviceInfo.Ip}"/>
+                            <TextBox Margin="2" 
+                                     Text="{Binding ManualDeviceInfo.Port}"/>
+                            <ComboBox Margin="2"
+                                        ItemsSource="{Binding PortTypes}" 
+                                        SelectedItem="{Binding SelectedPort}"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </StackPanel>
+
         <Border Margin="5" BorderBrush="#3D3D3D" BorderThickness="1" >
-            <DockPanel Height="200">
+            <DockPanel>
                 <DockPanel DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" >
                         <Label Content="Count:" Margin="2,0,0,0"/>
-                        <Label Content="{Binding RegisteredDeviceInfos.Count}" Margin="0,0,5,0"/>
+                        <Label Content="{Binding BroadcastDeviceInfos.Count}" Margin="0,0,5,0"/>
                     </StackPanel>
-                    <Label Content="Registered Devices" DockPanel.Dock="Left"/>
+                    <Label Content="Broadcast Devices" DockPanel.Dock="Left"/>
                 </DockPanel>
-                <ListView ItemsSource="{Binding RegisteredDeviceInfos}" SelectedItem="{Binding SelectedRegisteredDeviceInfo}">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" >
+                    <Label Content="Searching.." Margin="2,0,2,0"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding BroadcastDeviceInfos}" SelectedItem="{Binding SelectedDeviceInfo}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}" />
@@ -30,71 +72,5 @@
                 </ListView>
             </DockPanel>
         </Border>
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Right">
-                <Border Margin="5" BorderBrush="#3D3D3D" BorderThickness="1" >
-                    <DockPanel MinWidth="300" >
-                        <Button Margin="5" Height="30" Content="Add Selected Device" Command="{Binding AddSelectedDeviceCommand}" DockPanel.Dock="Bottom"/>
-                        <StackPanel Orientation="Vertical" Margin="3">
-                            <Border>
-                                <StackPanel Margin="2" Grid.IsSharedSizeScope="True">
-                                    <Label Content="Selected Device" FontSize="15" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.Version}"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.Ip}"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.NetMask}"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.Port}"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.Gateway}"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.Sens}"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.Opm}"/>
-                                    <TextBlock Text="{Binding SelectedDeviceInfo.Connections}"/>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </DockPanel>
-                </Border>
-                <Border Margin="5" BorderBrush="#3D3D3D" BorderThickness="1" >
-                    <DockPanel MinWidth="300">
-                        <Button Margin="5" Height="30" Content="Add Device" Command="{Binding AddDeviceManualCommand}" DockPanel.Dock="Bottom"/>
-                        <StackPanel Orientation="Vertical" Margin="3">
-                            <Label Content="Add Manual" FontSize="15" FontWeight="Bold"/>
-                            <StackPanel Margin="2"  Grid.IsSharedSizeScope="True">
-                                <TextBox Margin="2" 
-                                         Text="{Binding ManualDeviceInfo.Ip}"/>
-                                <TextBox Margin="2" 
-                                         Text="{Binding ManualDeviceInfo.Port}"/>
-                                <ComboBox Margin="2"
-                                            ItemsSource="{Binding PortTypes}" 
-                                            SelectedItem="{Binding SelectedPort}"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </DockPanel>
-                </Border>
-            </StackPanel>
-
-            <Border Margin="5" BorderBrush="#3D3D3D" BorderThickness="1" >
-                <DockPanel>
-                    <DockPanel DockPanel.Dock="Top">
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" >
-                            <Label Content="Count:" Margin="2,0,0,0"/>
-                            <Label Content="{Binding BroadcastDeviceInfos.Count}" Margin="0,0,5,0"/>
-                        </StackPanel>
-                        <Label Content="Broadcast Devices" DockPanel.Dock="Left"/>
-                    </DockPanel>
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" >
-                        <Label Content="Searching.." Margin="2,0,2,0"/>
-                    </StackPanel>
-                    <ListView ItemsSource="{Binding BroadcastDeviceInfos}" SelectedItem="{Binding SelectedDeviceInfo}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}" />
-                                <GridViewColumn Header="Ip" DisplayMemberBinding="{Binding Ip}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </DockPanel>
-            </Border>
-        </DockPanel>
-    </StackPanel>
+    </DockPanel>
 </UserControl>
