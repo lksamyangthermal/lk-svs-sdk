@@ -17,34 +17,6 @@ namespace WpfSample.ViewModel
         [ObservableProperty]
         private DeviceHandler _deviceHandler = DeviceHandler.Instance;
 
-        [ObservableProperty]
-        private List<PseudoColor.Type> _pseudoColors = Enum.GetValues(typeof(PseudoColor.Type)).Cast<PseudoColor.Type>().ToList();
-
         public PreviewViewModel() { }
-
-        [RelayCommand]
-        private async Task Disconnect()
-        {
-            if (DeviceHandler.SelectedDevice == null) return;
-
-            await DeviceHandler.SelectedDevice.DisposeAsync();
-            DeviceHandler.SelectedDevice = null;
-        }
-
-        [RelayCommand]
-        private async Task ActiveOnceShutter()
-        {
-            try
-            {
-                if (DeviceHandler.SelectedDevice == null) return;
-
-                var udpCamera = (UdpCamera)DeviceHandler.SelectedDevice.Camera;
-                await udpCamera.RunShutterManually();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"ActiveOnceShutter: {ex.Message}");
-            }
-        }
     }
 }

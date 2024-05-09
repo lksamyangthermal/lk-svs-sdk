@@ -6,14 +6,18 @@
         xmlns:local="clr-namespace:WpfSample"
         xmlns:preview="clr-namespace:WpfSample.View.Preview"
         xmlns:broadcast="clr-namespace:WpfSample.View.Broadcast"
+        xmlns:control="clr-namespace:WpfSample.View.Control"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         Title="LK SVS SDK" Height="450" Width="800">
     <Grid>
         <DockPanel>
+            <DockPanel DockPanel.Dock="Right">
+                <control:ControlPanel DockPanel.Dock="Bottom"/>
+                <broadcast:BroadcastPanel />
+            </DockPanel>
             <preview:PreviewPanel/>
-            <broadcast:BroadcastPanel DockPanel.Dock="Right"/>
         </DockPanel>
     </Grid>
 </Window>

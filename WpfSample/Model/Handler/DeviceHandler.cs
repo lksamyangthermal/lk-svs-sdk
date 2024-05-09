@@ -24,9 +24,9 @@ namespace WpfSample.Model.Handler
         [ObservableProperty]
         private List<int> _fpsList = new List<int>() { 1, 2, 4, 8 };
         [ObservableProperty]
-        private int _selectedFpsThermal = 2;
+        private int _selectedFpsThermal = 8;
         [ObservableProperty]
-        private int _selectedFpsCmos = 2;
+        private int _selectedFpsCmos = 8;
 
         [ObservableProperty]
         private Device? _selectedDevice = null;

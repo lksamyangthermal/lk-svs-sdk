@@ -15,40 +15,34 @@
         <viewmodel:PreviewViewModel/>
     </UserControl.DataContext>
     <Border Margin="5" BorderBrush="#3D3D3D" BorderThickness="1" >
-        <StackPanel Margin="5">
-            <DockPanel>
-                <Grid DockPanel.Dock="Right" HorizontalAlignment="Right" ZIndex="1" Opacity="0.8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" MinWidth="320">
+                <Grid HorizontalAlignment="Right" ZIndex="1" Opacity="0.8">
                     <local:PaletteBar DataContext="{Binding DeviceHandler.SelectedDevice }" HorizontalAlignment="Right" Height="{Binding ElementName=MainImage, Path=ActualHeight}"/>
                 </Grid>
-                <Grid Width="640" Height="480">
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Image x:Name="MainImage" 
-                               Source="{Binding DeviceHandler.SelectedDevice.ThermalPreview, Converter={StaticResource MatToBitmapSource}}"
-                               Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
-                               Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"/>
-                    </Grid>
-                    <!-- PaletteBar height bound to the height of the Image -->
+                <StackPanel DockPanel.Dock="Top" ZIndex="1" Orientation="Horizontal">
+                    <TextBlock Margin="5" FontWeight="Bold" Text="Max :"/>
+                    <TextBlock Margin="5" FontWeight="Bold" Text="{Binding DeviceHandler.SelectedDevice.TempMax}"/>
+                    <TextBlock Margin="5" FontWeight="Bold" Text="Avrg :"/>
+                    <TextBlock Margin="5" FontWeight="Bold" Text="{Binding DeviceHandler.SelectedDevice.TempAvr}"/>
+                    <TextBlock Margin="5" FontWeight="Bold" Text="Min :"/>
+                    <TextBlock Margin="5" FontWeight="Bold" Text="{Binding DeviceHandler.SelectedDevice.TempMin}"/>
+                </StackPanel>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Image Source="{Binding DeviceHandler.SelectedDevice.ThermalPreview, Converter={StaticResource MatToBitmapSource}}"
+                           Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                           Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"/>
                 </Grid>
-
-            </DockPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <TextBlock Margin="5" FontWeight="Bold" Text="Max :"/>
-                <TextBlock Margin="5" FontWeight="Bold" Text="{Binding DeviceHandler.SelectedDevice.TempMax}"/>
-                <TextBlock Margin="5" FontWeight="Bold" Text="Avrg :"/>
-                <TextBlock Margin="5" FontWeight="Bold" Text="{Binding DeviceHandler.SelectedDevice.TempAvr}"/>
-                <TextBlock Margin="5" FontWeight="Bold" Text="Min :"/>
-                <TextBlock Margin="5" FontWeight="Bold" Text="{Binding DeviceHandler.SelectedDevice.TempMin}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <TextBlock Margin="5" FontWeight="Bold" Text="Pseudo Color :"/>
-                <ComboBox Margin="5"
-                          ItemsSource="{Binding PseudoColors}" 
-                          SelectedItem="{Binding DeviceHandler.SelectedDevice.PseudoColorType}"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"/>
-            </StackPanel>
-            <Button Margin="5" Content="Active once shutter" Command="{Binding ActiveOnceShutterCommand}"/>
-            <Button Margin="5" Content="Disconnect" Command="{Binding DisconnectCommand}"/>
-        </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Image Source="{Binding DeviceHandler.SelectedDevice.CmosPreview, Converter={StaticResource MatToBitmapSource}}"
+                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                       Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"/>
+            </Grid>
+        </Grid>
     </Border>
 </UserControl>

@@ -96,7 +96,7 @@ namespace WpfSample.ViewModel
                 try
                 {
                     DeviceHandler.ConnectDevice(info);
-
+                    Debug.WriteLine($"ConnectDevice: {info.Ip}");
                 }
                 catch (Exception ex)
                 {
