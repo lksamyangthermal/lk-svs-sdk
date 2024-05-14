@@ -54,11 +54,8 @@ namespace WpfSample.Model
         {
             if (e.FrameType == FrameType.Thermal)
             {
-                if (Camera.FrameBufferThermal.Queue.Count > 0)
-                {
-                    await ProcessThermalImage(e.Frame.Bytes);
-                    _ = Task.Run(() => ThermalFps = CalculateFps(_stopwatchThermal));
-                }
+                await ProcessThermalImage(e.Frame.Bytes);
+                _ = Task.Run(() => ThermalFps = CalculateFps(_stopwatchThermal));
             }
         }
 
@@ -66,11 +63,8 @@ namespace WpfSample.Model
         {
             if (e.FrameType == FrameType.Cmos)
             {
-                if (Camera.FrameBufferCmos.Queue.Count > 0)
-                {
-                    await ProcessCmosFrame(e.Frame.Bytes);
-                    _ = Task.Run(() => CmosFps = CalculateFps(_stopwatchCmos));
-                }
+                await ProcessCmosFrame(e.Frame.Bytes);
+                _ = Task.Run(() => CmosFps = CalculateFps(_stopwatchCmos));
             }
         }
 
