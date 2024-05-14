@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfSample"
+        xmlns:preview="clr-namespace:WpfSample.View.Preview"
+        xmlns:broadcast="clr-namespace:WpfSample.View.Broadcast"
+        xmlns:control="clr-namespace:WpfSample.View.Control"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Title="LK SVS SDK" Height="450" Width="800">
+    <Grid>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Right">
+                <control:ControlPanel DockPanel.Dock="Bottom"/>
+                <broadcast:BroadcastPanel />
+            </DockPanel>
+            <preview:PreviewPanel/>
+        </DockPanel>
+    </Grid>
+</Window>
