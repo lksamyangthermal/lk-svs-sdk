@@ -56,7 +56,7 @@ namespace WpfSample.Model
             {
                 if (Camera.FrameBufferThermal.Queue.Count > 0)
                 {
-                    await ProcessThermalImage(Camera.FrameBufferThermal.Queue.Last());
+                    await ProcessThermalImage(e.Frame.Bytes);
                     _ = Task.Run(() => ThermalFps = CalculateFps(_stopwatchThermal));
                 }
             }
@@ -68,7 +68,7 @@ namespace WpfSample.Model
             {
                 if (Camera.FrameBufferCmos.Queue.Count > 0)
                 {
-                    await ProcessCmosFrame(Camera.FrameBufferCmos.Queue.Last());
+                    await ProcessCmosFrame(e.Frame.Bytes);
                     _ = Task.Run(() => CmosFps = CalculateFps(_stopwatchCmos));
                 }
             }
