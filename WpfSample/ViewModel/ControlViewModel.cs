@@ -14,11 +14,9 @@ namespace WpfSample.ViewModel
 {
     public partial class ControlViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private DeviceHandler _deviceHandler = DeviceHandler.Instance;
-
-        [ObservableProperty]
-        private List<PseudoColor.Type> _pseudoColors = Enum.GetValues(typeof(PseudoColor.Type)).Cast<PseudoColor.Type>().ToList();
+        [ObservableProperty] private DeviceHandler _deviceHandler = DeviceHandler.Instance;
+        [ObservableProperty] private List<PseudoColor.Type> _pseudoColors = Enum.GetValues(typeof(PseudoColor.Type)).Cast<PseudoColor.Type>().ToList();
+        [ObservableProperty] private double _offset = 0;
 
         public ControlViewModel() { }
 
@@ -45,6 +43,31 @@ namespace WpfSample.ViewModel
             {
                 Debug.WriteLine($"ActiveOnceShutter: {ex.Message}");
             }
+        }
+
+        [RelayCommand]
+        private async Task GetOffset()
+        {
+            if (DeviceHandler.SelectedDevice == null) return;
+
+            var camera = DeviceHandler.SelectedDevice.Camera as UdpCamera;
+            if (camera == null) return;
+
+            var offset = await camera.GetOffset();
+            if (offset == null) return;
+
+            Offset = (double)offset;
+        }
+
+        [RelayCommand]
+        private async Task SetOffset()
+        {
+            if (DeviceHandler.SelectedDevice == null) return;
+
+            var camera = DeviceHandler.SelectedDevice.Camera as UdpCamera;
+            if (camera == null) return;
+
+            await camera.SetOffset(Offset);
         }
     }
 }

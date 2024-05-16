@@ -55,46 +55,22 @@ namespace WpfSample.Model
             avrVal = 0.0;
             if (mat != null)
             {
-                // NaN이 아닌 값에 대한 마스크 생성
-                Mat mask = Mat.Zeros(mat.Size(), MatType.CV_8U);
-                int rows = mat.Rows;
-                int cols = mat.Cols;
-
-                for (int i = 0; i < rows; i++)
-                {
-                    for (int j = 0; j < cols; j++)
-                    {
-                        double value = mat.At<UInt16>(i, j);
-                        if (value != 0)
-                        {
-                            mask.Set<byte>(i, j, 255);
-                        }
-                        else
-                        {
-                            mask.Set<byte>(i, j, 0);
-                        }
-                    }
-                }
 
                 OpenCvSharp.Point minLoc = new();
                 OpenCvSharp.Point maxLoc = new();
-                // 마스크를 사용하여 NaN이 아닌 값에 대한 최소값, 최대값 계산
 
-                double minValraw;
-                double maxValraw;
-                mat.MinMaxLoc(out minValraw, out maxValraw, out minLoc, out maxLoc, mask: mask);
+                double minValRaw;
+                double maxValRaw;
+                mat.MinMaxLoc(out minValRaw, out maxValRaw, out minLoc, out maxLoc);
 
                 // 마스크를 사용하여 NaN이 아닌 값에 대한 평균값 계산
-                Scalar meanVal = Cv2.Mean(mat, mask);
+                Scalar meanVal = Cv2.Mean(mat);
                 avrVal = meanVal.Val0;
 
                 // 센서 유형에 따라 온도 변환 및 반올림
-                minVal = Math.Round(RawToCelsius(minValraw, cameraType), 2);
-                maxVal = Math.Round(RawToCelsius(maxValraw, cameraType), 2);
+                minVal = Math.Round(RawToCelsius(minValRaw, cameraType), 2);
+                maxVal = Math.Round(RawToCelsius(maxValRaw, cameraType), 2);
                 avrVal = Math.Round(RawToCelsius(avrVal, cameraType), 2);
-
-                // 사용한 마스크 해제
-                mask.Dispose();
             }
         }
 

@@ -20,6 +20,12 @@
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Center"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <TextBlock Margin="5" FontWeight="Bold" Text="Offset :"/>
+                <TextBox Margin="5" Text ="{Binding Offset}" Width="50"/>
+                <Button Margin="5" Content="Get" Command="{Binding GetOffsetCommand}" Width="50"/>
+                <Button Margin="5" Content="Set" Command="{Binding SetOffsetCommand}" Width="50"/>
+            </StackPanel>
             <Button Margin="5" Content="Active once shutter" Command="{Binding ActiveOnceShutterCommand}"/>
             <Button Margin="5" Content="Disconnect" Command="{Binding DisconnectCommand}"/>
         </StackPanel>

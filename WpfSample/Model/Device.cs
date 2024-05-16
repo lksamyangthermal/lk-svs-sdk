@@ -48,41 +48,39 @@ namespace WpfSample.Model
         public Device(ICamera camera)
         {
             Camera = camera;
-            Initialize();
+            Camera.ThermalFrameEnqueued += ThermalCamera_FrameEnqueued;
+            Camera.CmosFrameEnqueued += CmosCamera_FrameEnqueued;
+            Camera.UvfCountEnqueued += UvfCount_FrameEnqueued;
         }
+
         private async void ThermalCamera_FrameEnqueued(object sender, FrameEventArgs e)
         {
-            if (e.FrameType == FrameType.Thermal)
+            if (e.Frame.Type == IFrame.FrameType.Thermal)
             {
-                await ProcessThermalImage(e.Frame.Bytes);
+                await ProcessThermalImage(e.Frame);
                 _ = Task.Run(() => ThermalFps = CalculateFps(_stopwatchThermal));
             }
         }
 
         private async void CmosCamera_FrameEnqueued(object sender, FrameEventArgs e)
         {
-            if (e.FrameType == FrameType.Cmos)
+            if (e.Frame.Type == IFrame.FrameType.Cmos)
             {
-                await ProcessCmosFrame(e.Frame.Bytes);
+                await ProcessCmosFrame(e.Frame);
                 _ = Task.Run(() => CmosFps = CalculateFps(_stopwatchCmos));
             }
         }
 
         private async void UvfCount_FrameEnqueued(object sender, FrameEventArgs e)
         {
-            if (e.FrameType == FrameType.Uvf)
+            if (e.Frame.Type == IFrame.FrameType.Thermal)
             {
-                UvCount = Camera.UvfCount;
+                if (e.Frame is ThermalFrame thermalFrame)
+                {
+                    UvCount = thermalFrame.UvfCount;
+                }
             }
         }
-
-        public void Initialize()
-        {
-            Camera.ThermalFrameEnqueued += ThermalCamera_FrameEnqueued;
-            Camera.CmosFrameEnqueued += CmosCamera_FrameEnqueued;
-            Camera.UvfCountEnqueued += UvfCount_FrameEnqueued;
-        }
-
 
         public async ValueTask DisposeAsync()
         {
@@ -102,14 +100,14 @@ namespace WpfSample.Model
             }
         }
 
-        private async Task ProcessThermalImage(byte[] bytes)
+        private async Task ProcessThermalImage(IFrame frame)
         {
             try
             {
                 double tempMin, tempMax, tempAvr;
 
-                var shorts = Util.BytesToShorts(bytes);
-                MatRaw = ImageProcess.BufferToMat(shorts, Camera.FrameBufferThermal.FrameWidth, Camera.FrameBufferThermal.FrameHeight);
+                var shorts = Util.BytesToShorts(frame.Bytes);
+                MatRaw = ImageProcess.BufferToMat(shorts, frame.Width,frame.Height);
 
                 ImageProcess.GetTemperature(MatRaw, out tempMin, out tempMax, out tempAvr, Camera.Type);
                 TempMin = tempMin;
@@ -164,15 +162,15 @@ namespace WpfSample.Model
             return Task.FromResult(resizedThermal);
         }
 
-        private async Task ProcessCmosFrame(byte[] bytes)
+        private async Task ProcessCmosFrame(IFrame frame)
         {
             await Task.Run(() =>
             {
                 try
                 {
-                    if (bytes != null && bytes.Length != 0)
+                    if (frame.Bytes != null && frame.Bytes.Length != 0)
                     {
-                        var matCmos = Cv2.ImDecode(bytes, ImreadModes.Color);
+                        var matCmos = Cv2.ImDecode(frame.Bytes, ImreadModes.Color);
                         if (matCmos != null)
                         {
                             CmosPreview = matCmos;
