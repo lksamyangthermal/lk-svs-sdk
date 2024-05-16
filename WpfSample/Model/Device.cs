@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using OpenCvSharp;
+using WpfSample.Model.Handler;
 
 namespace WpfSample.Model
 {
@@ -43,14 +44,30 @@ namespace WpfSample.Model
         [ObservableProperty]
         private PseudoColor.Type _pseudoColorType = PseudoColor.Type.Rainbow;
 
+        [ObservableProperty] private double _userOffset = 0;
+
         public Device() { }
 
         public Device(ICamera camera)
         {
             Camera = camera;
+
+            _ = GetUserOffset();
+
             Camera.ThermalFrameEnqueued += ThermalCamera_FrameEnqueued;
             Camera.CmosFrameEnqueued += CmosCamera_FrameEnqueued;
             Camera.UvfCountEnqueued += UvfCount_FrameEnqueued;
+        }
+
+        private async Task GetUserOffset()
+        {
+            var camera = Camera as UdpCamera;
+            if (camera == null) return;
+
+            var offset = await camera.GetOffset();
+            if (offset == null) return;
+
+            UserOffset = (double)offset;
         }
 
         private async void ThermalCamera_FrameEnqueued(object sender, FrameEventArgs e)
@@ -110,9 +127,9 @@ namespace WpfSample.Model
                 MatRaw = ImageProcess.BufferToMat(shorts, frame.Width,frame.Height);
 
                 ImageProcess.GetTemperature(MatRaw, out tempMin, out tempMax, out tempAvr, Camera.Type);
-                TempMin = tempMin;
-                TempMax = tempMax;
-                TempAvr = tempAvr;
+                TempMin = Math.Round(tempMin + UserOffset, 2);
+                TempMax = Math.Round(tempMax + UserOffset, 2);
+                TempAvr = Math.Round(tempAvr + UserOffset, 2);
 
                 var pseudoColorTask = ApplyPseudoColorAsync(MatRaw);
                 ThermalPreview = pseudoColorTask.Result;

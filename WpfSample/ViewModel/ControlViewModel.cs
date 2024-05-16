@@ -57,6 +57,7 @@ namespace WpfSample.ViewModel
             if (offset == null) return;
 
             Offset = (double)offset;
+            DeviceHandler.SelectedDevice.UserOffset = Offset;
         }
 
         [RelayCommand]
@@ -67,7 +68,11 @@ namespace WpfSample.ViewModel
             var camera = DeviceHandler.SelectedDevice.Camera as UdpCamera;
             if (camera == null) return;
 
-            await camera.SetOffset(Offset);
+            var offset = await camera.SetOffset(Offset);
+            if (offset != null)
+            {
+                DeviceHandler.SelectedDevice.UserOffset = (double)offset;
+            };
         }
     }
 }
