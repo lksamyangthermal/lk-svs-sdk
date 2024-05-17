@@ -4,16 +4,16 @@
 Working in visual studio 2022 and .NET8 environments  
 
 ### Dependency
-	- KIRSharp 1.8.0
-	- CommunityToolkit.Mvvm 8.2.2
-	- OpenCvSharp4 4.9.0.20240103
-	- OpenCvSharp4.Extensions 4.9.0.20240103
-	- OpenCvSharp4.WpfExtensions 4.9.0.20240103
+- KIRSharp 1.8.0
+- CommunityToolkit.Mvvm 8.2.2
+- OpenCvSharp4 4.9.0.20240103
+- OpenCvSharp4.Extensions 4.9.0.20240103
+- OpenCvSharp4.WpfExtensions 4.9.0.20240103
 
 ### Release
-	- 2024-05-17	First release
+- 2024-05-17	First release
 
 ### Docs
-	- SVS-384TW2I Connect guide
-	- Getting started
-	- API Manual
+- SVS-384TW2I Connect guide
+- Getting started
+- API Manual
