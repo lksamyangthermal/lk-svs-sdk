@@ -1,6 +1,7 @@
 # lk-svs-sdk
 
 ## C# SDK for LK Samyang KIR, SVS series thermal imaging camera
+Working in visual studio 2022 and .NET8 environments  
 
 ### Dependency
 	- KIRSharp 1.8.0
