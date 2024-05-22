@@ -12,6 +12,7 @@ Working in visual studio 2022 and .NET8 environments
 
 ### Release
 - 2024-05-17	First release
+- 2024-05-22	KIRSharp.dll updated to 1.9.0
 
 ### Docs
 - SVS-384TW2I Connect guide
