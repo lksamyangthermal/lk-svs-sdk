@@ -4,7 +4,7 @@
 Working in visual studio 2022 and .NET8 environments  
 
 ### Dependency
-- KIRSharp 2.0.1
+- KIRSharp 2.0.4
 - CommunityToolkit.Mvvm 8.2.2
 - OpenCvSharp4 4.9.0.20240103
 - OpenCvSharp4.Extensions 4.9.0.20240103
