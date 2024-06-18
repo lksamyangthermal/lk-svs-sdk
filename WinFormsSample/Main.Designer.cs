@@ -41,6 +41,8 @@
             label_Broadcast_Count = new Label();
             label_Broadcast_CountName = new Label();
             listView_Broadcast = new ListView();
+            Verison = new ColumnHeader();
+            Ip = new ColumnHeader();
             groupBox_SelectedDevice = new GroupBox();
             button_SelectedDevice_Connect = new Button();
             labell_SelectedDevice_Gateway = new Label();
@@ -190,11 +192,23 @@
             // 
             // listView_Broadcast
             // 
+            listView_Broadcast.Columns.AddRange(new ColumnHeader[] { Verison, Ip });
             listView_Broadcast.Location = new Point(6, 47);
             listView_Broadcast.Name = "listView_Broadcast";
             listView_Broadcast.Size = new Size(199, 221);
             listView_Broadcast.TabIndex = 0;
             listView_Broadcast.UseCompatibleStateImageBehavior = false;
+            listView_Broadcast.View = View.Details;
+            // 
+            // Verison
+            // 
+            Verison.Text = "Verison";
+            Verison.Width = 80;
+            // 
+            // Ip
+            // 
+            Ip.Text = "Ip";
+            Ip.Width = 100;
             // 
             // groupBox_SelectedDevice
             // 
@@ -459,5 +473,7 @@
         private Label label_Preview_Max;
         private Label label_Preview_MinName;
         private Label label_Preview_AvrgName;
+        private ColumnHeader Verison;
+        private ColumnHeader Ip;
     }
 }

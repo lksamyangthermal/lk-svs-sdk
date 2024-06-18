@@ -13,6 +13,9 @@
     <Compile Include="..\WpfSample\Model\Handler\DeviceHandler.cs" Link="Model\Handler\DeviceHandler.cs" />
     <Compile Include="..\WpfSample\Model\ImageProcess.cs" Link="Model\ImageProcess.cs" />
     <Compile Include="..\WpfSample\Model\PseudoColor.cs" Link="Model\PseudoColor.cs" />
+    <Compile Include="..\WpfSample\ViewModel\BroadCastViewModel.cs" Link="ViewModel\BroadCastViewModel.cs" />
+    <Compile Include="..\WpfSample\ViewModel\ControlViewModel.cs" Link="ViewModel\ControlViewModel.cs" />
+    <Compile Include="..\WpfSample\ViewModel\PreviewViewModel.cs" Link="ViewModel\PreviewViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Model\Handler\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>
