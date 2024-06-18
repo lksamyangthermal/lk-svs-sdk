@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\WpfSample\Model\Device.cs" Link="Model\Device.cs" />
+    <Compile Include="..\WpfSample\Model\Handler\DeviceHandler.cs" Link="Model\Handler\DeviceHandler.cs" />
+    <Compile Include="..\WpfSample\Model\ImageProcess.cs" Link="Model\ImageProcess.cs" />
+    <Compile Include="..\WpfSample\Model\PseudoColor.cs" Link="Model\PseudoColor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="OpenCvSharp4" Version="4.9.0.20240103" />
+    <PackageReference Include="OpenCvSharp4.Extensions" Version="4.9.0.20240103" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\Handler\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="KIRSharp">
+      <HintPath>..\Library\KIRSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
