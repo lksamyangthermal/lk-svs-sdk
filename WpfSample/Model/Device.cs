@@ -9,10 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
 using OpenCvSharp;
-using WpfSample.Model.Handler;
 
 namespace WpfSample.Model
 {
@@ -162,7 +159,7 @@ namespace WpfSample.Model
 
                 if (Camera.FrameBufferCmos.FrameWidth > 0 && Camera.FrameBufferCmos.FrameHeight > 0)
                 {
-                    Cv2.Resize(rechannelThermal, resizedThermal, new Size(Camera.FrameBufferCmos.FrameWidth, Camera.FrameBufferCmos.FrameHeight));
+                    Cv2.Resize(rechannelThermal, resizedThermal, new OpenCvSharp.Size(Camera.FrameBufferCmos.FrameWidth, Camera.FrameBufferCmos.FrameHeight));
                 }
                 else
                 {
