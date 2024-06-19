@@ -45,10 +45,10 @@
             Ip = new ColumnHeader();
             groupBox_SelectedDevice = new GroupBox();
             button_SelectedDevice_Connect = new Button();
-            labell_SelectedDevice_Gateway = new Label();
-            labell_SelectedDevice_Port = new Label();
-            labell_SelectedDevice_Netmask = new Label();
-            labell_SelectedDevice_Ip = new Label();
+            label_SelectedDevice_Gateway = new Label();
+            label_SelectedDevice_Port = new Label();
+            label_SelectedDevice_Netmask = new Label();
+            label_SelectedDevice_Ip = new Label();
             label_SelectedDevice_Version = new Label();
             groupBox_AddManual = new GroupBox();
             comboBox1 = new ComboBox();
@@ -93,7 +93,7 @@
             // label_Preview_Min
             // 
             label_Preview_Min.AutoSize = true;
-            label_Preview_Min.Location = new Point(211, 22);
+            label_Preview_Min.Location = new Point(271, 22);
             label_Preview_Min.Name = "label_Preview_Min";
             label_Preview_Min.Size = new Size(14, 15);
             label_Preview_Min.TabIndex = 9;
@@ -102,7 +102,7 @@
             // label_Preview_Avrg
             // 
             label_Preview_Avrg.AutoSize = true;
-            label_Preview_Avrg.Location = new Point(135, 22);
+            label_Preview_Avrg.Location = new Point(165, 22);
             label_Preview_Avrg.Name = "label_Preview_Avrg";
             label_Preview_Avrg.Size = new Size(14, 15);
             label_Preview_Avrg.TabIndex = 8;
@@ -120,7 +120,7 @@
             // label_Preview_MinName
             // 
             label_Preview_MinName.AutoSize = true;
-            label_Preview_MinName.Location = new Point(166, 22);
+            label_Preview_MinName.Location = new Point(226, 22);
             label_Preview_MinName.Name = "label_Preview_MinName";
             label_Preview_MinName.Size = new Size(39, 15);
             label_Preview_MinName.TabIndex = 6;
@@ -129,7 +129,7 @@
             // label_Preview_AvrgName
             // 
             label_Preview_AvrgName.AutoSize = true;
-            label_Preview_AvrgName.Location = new Point(86, 22);
+            label_Preview_AvrgName.Location = new Point(116, 22);
             label_Preview_AvrgName.Name = "label_Preview_AvrgName";
             label_Preview_AvrgName.Size = new Size(43, 15);
             label_Preview_AvrgName.TabIndex = 5;
@@ -217,10 +217,10 @@
             // groupBox_SelectedDevice
             // 
             groupBox_SelectedDevice.Controls.Add(button_SelectedDevice_Connect);
-            groupBox_SelectedDevice.Controls.Add(labell_SelectedDevice_Gateway);
-            groupBox_SelectedDevice.Controls.Add(labell_SelectedDevice_Port);
-            groupBox_SelectedDevice.Controls.Add(labell_SelectedDevice_Netmask);
-            groupBox_SelectedDevice.Controls.Add(labell_SelectedDevice_Ip);
+            groupBox_SelectedDevice.Controls.Add(label_SelectedDevice_Gateway);
+            groupBox_SelectedDevice.Controls.Add(label_SelectedDevice_Port);
+            groupBox_SelectedDevice.Controls.Add(label_SelectedDevice_Netmask);
+            groupBox_SelectedDevice.Controls.Add(label_SelectedDevice_Ip);
             groupBox_SelectedDevice.Controls.Add(label_SelectedDevice_Version);
             groupBox_SelectedDevice.Location = new Point(604, 12);
             groupBox_SelectedDevice.Name = "groupBox_SelectedDevice";
@@ -239,41 +239,41 @@
             button_SelectedDevice_Connect.UseVisualStyleBackColor = true;
             button_SelectedDevice_Connect.Click += button_SelectedDevice_Connect_Click;
             // 
-            // labell_SelectedDevice_Gateway
+            // label_SelectedDevice_Gateway
             // 
-            labell_SelectedDevice_Gateway.AutoSize = true;
-            labell_SelectedDevice_Gateway.Location = new Point(6, 82);
-            labell_SelectedDevice_Gateway.Name = "labell_SelectedDevice_Gateway";
-            labell_SelectedDevice_Gateway.Size = new Size(52, 15);
-            labell_SelectedDevice_Gateway.TabIndex = 6;
-            labell_SelectedDevice_Gateway.Text = "Gateway";
+            label_SelectedDevice_Gateway.AutoSize = true;
+            label_SelectedDevice_Gateway.Location = new Point(6, 82);
+            label_SelectedDevice_Gateway.Name = "label_SelectedDevice_Gateway";
+            label_SelectedDevice_Gateway.Size = new Size(52, 15);
+            label_SelectedDevice_Gateway.TabIndex = 6;
+            label_SelectedDevice_Gateway.Text = "Gateway";
             // 
-            // labell_SelectedDevice_Port
+            // label_SelectedDevice_Port
             // 
-            labell_SelectedDevice_Port.AutoSize = true;
-            labell_SelectedDevice_Port.Location = new Point(6, 67);
-            labell_SelectedDevice_Port.Name = "labell_SelectedDevice_Port";
-            labell_SelectedDevice_Port.Size = new Size(29, 15);
-            labell_SelectedDevice_Port.TabIndex = 5;
-            labell_SelectedDevice_Port.Text = "Port";
+            label_SelectedDevice_Port.AutoSize = true;
+            label_SelectedDevice_Port.Location = new Point(6, 67);
+            label_SelectedDevice_Port.Name = "label_SelectedDevice_Port";
+            label_SelectedDevice_Port.Size = new Size(29, 15);
+            label_SelectedDevice_Port.TabIndex = 5;
+            label_SelectedDevice_Port.Text = "Port";
             // 
-            // labell_SelectedDevice_Netmask
+            // label_SelectedDevice_Netmask
             // 
-            labell_SelectedDevice_Netmask.AutoSize = true;
-            labell_SelectedDevice_Netmask.Location = new Point(6, 52);
-            labell_SelectedDevice_Netmask.Name = "labell_SelectedDevice_Netmask";
-            labell_SelectedDevice_Netmask.Size = new Size(54, 15);
-            labell_SelectedDevice_Netmask.TabIndex = 4;
-            labell_SelectedDevice_Netmask.Text = "Netmask";
+            label_SelectedDevice_Netmask.AutoSize = true;
+            label_SelectedDevice_Netmask.Location = new Point(6, 52);
+            label_SelectedDevice_Netmask.Name = "label_SelectedDevice_Netmask";
+            label_SelectedDevice_Netmask.Size = new Size(54, 15);
+            label_SelectedDevice_Netmask.TabIndex = 4;
+            label_SelectedDevice_Netmask.Text = "Netmask";
             // 
-            // labell_SelectedDevice_Ip
+            // label_SelectedDevice_Ip
             // 
-            labell_SelectedDevice_Ip.AutoSize = true;
-            labell_SelectedDevice_Ip.Location = new Point(6, 37);
-            labell_SelectedDevice_Ip.Name = "labell_SelectedDevice_Ip";
-            labell_SelectedDevice_Ip.Size = new Size(17, 15);
-            labell_SelectedDevice_Ip.TabIndex = 3;
-            labell_SelectedDevice_Ip.Text = "Ip";
+            label_SelectedDevice_Ip.AutoSize = true;
+            label_SelectedDevice_Ip.Location = new Point(6, 37);
+            label_SelectedDevice_Ip.Name = "label_SelectedDevice_Ip";
+            label_SelectedDevice_Ip.Size = new Size(17, 15);
+            label_SelectedDevice_Ip.TabIndex = 3;
+            label_SelectedDevice_Ip.Text = "Ip";
             // 
             // label_SelectedDevice_Version
             // 
@@ -296,6 +296,7 @@
             groupBox_AddManual.TabIndex = 3;
             groupBox_AddManual.TabStop = false;
             groupBox_AddManual.Text = "Add Manual";
+            groupBox_AddManual.Visible = false;
             // 
             // comboBox1
             // 
@@ -363,6 +364,7 @@
             button_Control_ActiveOnceShutter.TabIndex = 11;
             button_Control_ActiveOnceShutter.Text = "Active Once Shutter";
             button_Control_ActiveOnceShutter.UseVisualStyleBackColor = true;
+            button_Control_ActiveOnceShutter.Click += button_Control_ActiveOnceShutter_Click;
             // 
             // button_Control_Offset_Set
             // 
@@ -370,8 +372,9 @@
             button_Control_Offset_Set.Name = "button_Control_Offset_Set";
             button_Control_Offset_Set.Size = new Size(63, 23);
             button_Control_Offset_Set.TabIndex = 10;
-            button_Control_Offset_Set.Text = "Get";
+            button_Control_Offset_Set.Text = "Set";
             button_Control_Offset_Set.UseVisualStyleBackColor = true;
+            button_Control_Offset_Set.Click += button_Control_Offset_Set_Click;
             // 
             // button_Control_Offset_Get
             // 
@@ -381,6 +384,7 @@
             button_Control_Offset_Get.TabIndex = 9;
             button_Control_Offset_Get.Text = "Get";
             button_Control_Offset_Get.UseVisualStyleBackColor = true;
+            button_Control_Offset_Get.Click += button_Control_Offset_Get_Click;
             // 
             // textBox_Control_Offset
             // 
@@ -453,10 +457,10 @@
         private PictureBox pictureBox_CmosPreview;
         private PictureBox pictureBox_ThermalPreview;
         private ListView listView_Broadcast;
-        private Label labell_SelectedDevice_Gateway;
-        private Label labell_SelectedDevice_Port;
-        private Label labell_SelectedDevice_Netmask;
-        private Label labell_SelectedDevice_Ip;
+        private Label label_SelectedDevice_Gateway;
+        private Label label_SelectedDevice_Port;
+        private Label label_SelectedDevice_Netmask;
+        private Label label_SelectedDevice_Ip;
         private Label label_SelectedDevice_Version;
         private Button button_SelectedDevice_Connect;
         private Button button_AddManual_Connect;
