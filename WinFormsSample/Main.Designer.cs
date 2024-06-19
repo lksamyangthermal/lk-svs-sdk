@@ -149,6 +149,7 @@
             pictureBox_CmosPreview.Location = new Point(6, 228);
             pictureBox_CmosPreview.Name = "pictureBox_CmosPreview";
             pictureBox_CmosPreview.Size = new Size(357, 178);
+            pictureBox_CmosPreview.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox_CmosPreview.TabIndex = 1;
             pictureBox_CmosPreview.TabStop = false;
             // 
@@ -157,6 +158,7 @@
             pictureBox_ThermalPreview.Location = new Point(6, 47);
             pictureBox_ThermalPreview.Name = "pictureBox_ThermalPreview";
             pictureBox_ThermalPreview.Size = new Size(357, 175);
+            pictureBox_ThermalPreview.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox_ThermalPreview.TabIndex = 0;
             pictureBox_ThermalPreview.TabStop = false;
             // 
@@ -194,11 +196,13 @@
             // 
             listView_Broadcast.Columns.AddRange(new ColumnHeader[] { Verison, Ip });
             listView_Broadcast.Location = new Point(6, 47);
+            listView_Broadcast.MultiSelect = false;
             listView_Broadcast.Name = "listView_Broadcast";
             listView_Broadcast.Size = new Size(199, 221);
             listView_Broadcast.TabIndex = 0;
             listView_Broadcast.UseCompatibleStateImageBehavior = false;
             listView_Broadcast.View = View.Details;
+            listView_Broadcast.ItemSelectionChanged += listView_Broadcast_ItemSelectionChanged;
             // 
             // Verison
             // 
@@ -233,6 +237,7 @@
             button_SelectedDevice_Connect.TabIndex = 7;
             button_SelectedDevice_Connect.Text = "Connect";
             button_SelectedDevice_Connect.UseVisualStyleBackColor = true;
+            button_SelectedDevice_Connect.Click += button_SelectedDevice_Connect_Click;
             // 
             // labell_SelectedDevice_Gateway
             // 
@@ -348,6 +353,7 @@
             button_Control_Disconnect.TabIndex = 12;
             button_Control_Disconnect.Text = "Disconnect";
             button_Control_Disconnect.UseVisualStyleBackColor = true;
+            button_Control_Disconnect.Click += button_Control_Disconnect_Click;
             // 
             // button_Control_ActiveOnceShutter
             // 

@@ -81,7 +81,7 @@ namespace WpfSample.ViewModel
             }
         }
 
-        private async Task ConnectDevice(Info info)
+        public async Task ConnectDevice(Info info)
         {
             try
             {
