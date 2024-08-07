@@ -44,6 +44,8 @@ namespace WpfSample.Model.Handler
                 case CameraName.Kir160Dual:
                 case CameraName.Kir384Dual:
                     return new UdpCamera(info, SelectedFpsThermal, SelectedFpsCmos);
+                case CameraName.Hik160Dual:
+                    return new HikCamera(info);
                 case CameraName.Dummy:
                 default:
                     return new DummyCamera(info);

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -69,11 +70,8 @@ namespace WpfSample.Model
 
         private async void ThermalCamera_FrameEnqueued(object sender, FrameEventArgs e)
         {
-            if (e.Frame.Type == IFrame.FrameType.Thermal)
-            {
-                await ProcessThermalImage(e.Frame);
-                _ = Task.Run(() => ThermalFps = CalculateFps(_stopwatchThermal));
-            }
+            await ProcessThermalImage(e.Frame);
+            _ = Task.Run(() => ThermalFps = CalculateFps(_stopwatchThermal));
         }
 
         private async void CmosCamera_FrameEnqueued(object sender, FrameEventArgs e)
@@ -118,18 +116,55 @@ namespace WpfSample.Model
         {
             try
             {
-                double tempMin, tempMax, tempAvr;
+                if (frame.Type == IFrame.FrameType.Thermal)
+                {
+                    double tempMin, tempMax, tempAvr;
 
-                var shorts = Util.BytesToShorts(frame.Bytes);
-                MatRaw = ImageProcess.BufferToMat(shorts, frame.Width,frame.Height);
+                    var shorts = Util.BytesToShorts(frame.Bytes);
+                    MatRaw = ImageProcess.BufferToMat(shorts, frame.Width,frame.Height);
 
-                ImageProcess.GetTemperature(MatRaw, out tempMin, out tempMax, out tempAvr, Camera.Type);
-                TempMin = Math.Round(tempMin + UserOffset, 2);
-                TempMax = Math.Round(tempMax + UserOffset, 2);
-                TempAvr = Math.Round(tempAvr + UserOffset, 2);
+                    ImageProcess.GetTemperature(MatRaw, out tempMin, out tempMax, out tempAvr, Camera.Type);
+                    TempMin = Math.Round(tempMin + UserOffset, 2);
+                    TempMax = Math.Round(tempMax + UserOffset, 2);
+                    TempAvr = Math.Round(tempAvr + UserOffset, 2);
 
-                var pseudoColorTask = ApplyPseudoColorAsync(MatRaw);
-                ThermalPreview = pseudoColorTask.Result;
+                    var pseudoColorTask = ApplyPseudoColorAsync(MatRaw);
+                    ThermalPreview = pseudoColorTask.Result;
+                }
+                else if (frame.Type == IFrame.FrameType.Hik)
+                {
+                    ThermalPreview = ImageProcess.YV12ToRgb(frame.Bytes, frame.Width, frame.Height);
+                    //ThermalPreview = Cv2.ImDecode(frame.Bytes, ImreadModes.Color);
+
+                    //    using (var bitmap = new Bitmap(pFrameInfo.nWidth, pFrameInfo.nHeight, PixelFormat.Format24bppRgb))
+                    //    {
+                    //        BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                    //            ImageLockMode.WriteOnly, bitmap.PixelFormat);
+                    //        Marshal.Copy(buffer, 0, bmpData.Scan0, buffer.Length);
+                    //        bitmap.UnlockBits(bmpData);
+
+                    //        //BitmapImage bitmapImage = BitmapToBitmapImage(bitmap);
+                    //        //Dispatcher.Invoke(() =>
+                    //        //{
+                    //        //    LiveImage.Source = bitmapImage;
+                    //        //});
+                    //    }
+                    //}
+
+                    //var hikFrame = frame as HikCamera;
+                    //Image image = (Image)null;
+                    //using (MemoryStream memoryStream = new MemoryStream(buffer))
+                    //{
+                    //    Image bitmap = Image.FromStream((Stream)memoryStream);
+                    //    image = hikFrame.DeepCopyBitmap(bitmap);
+                    //    bitmap.Dispose();
+                    //}
+                }
+                else if (frame.Type == IFrame.FrameType.Rtsp)
+                {
+
+                }
+
 
             }
             catch (Exception ex)
