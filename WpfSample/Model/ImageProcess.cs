@@ -43,7 +43,7 @@ namespace WpfSample.Model
         {
             if (mat == null) return null;
             Mat matNorm = new Mat();
-            Cv2.Normalize(mat, matNorm, 0, 255, NormTypes.MinMax, MatType.CV_8UC1);
+            Cv2.Normalize(mat, matNorm, 0, 255, NormTypes.MinMax, MatType.CV_8U);
 
             return matNorm;
         }
@@ -149,6 +149,47 @@ namespace WpfSample.Model
             img2.CopyTo(roi2);
 
             return result;
+        }
+
+        public static Mat YV12ToRgb(byte[] yv12Buffer, int width, int height)
+        {
+            // YV12 버퍼에서 Y, U, V 평면을 분리
+            int ySize = width * height;
+            int uvSize = ySize / 4;
+
+            IntPtr yPlane = Marshal.AllocHGlobal(ySize);
+            IntPtr uPlane = Marshal.AllocHGlobal(uvSize);
+            IntPtr vPlane = Marshal.AllocHGlobal(uvSize);
+
+            Marshal.Copy(yv12Buffer, 0, yPlane, ySize);
+            Marshal.Copy(yv12Buffer, ySize, vPlane, uvSize); // V 평면이 먼저 있음
+            Marshal.Copy(yv12Buffer, ySize + uvSize, uPlane, uvSize); // 그 다음에 U 평면이 있음
+
+            Mat yMat = Mat.FromPixelData(height, width, MatType.CV_8UC1, yPlane);
+            Mat uMat = Mat.FromPixelData(height / 2, width / 2, MatType.CV_8UC1, uPlane);
+            Mat vMat = Mat.FromPixelData(height / 2, width / 2, MatType.CV_8UC1, vPlane);
+
+            // U, V 평면을 업샘플링
+            Mat uMatResized = new Mat();
+            Mat vMatResized = new Mat();
+            Cv2.Resize(uMat, uMatResized, new OpenCvSharp.Size(width, height));
+            Cv2.Resize(vMat, vMatResized, new OpenCvSharp.Size(width, height));
+
+            // YUV 평면을 병합
+            Mat[] yuvChannels = { yMat, uMatResized, vMatResized };
+            Mat yuvMat = new Mat();
+            Cv2.Merge(yuvChannels, yuvMat);
+
+            // YUV를 RGB로 변환
+            Mat rgbMat = new Mat();
+            Cv2.CvtColor(yuvMat, rgbMat, ColorConversionCodes.YUV2BGR);
+
+            // 메모리 해제
+            Marshal.FreeHGlobal(yPlane);
+            Marshal.FreeHGlobal(uPlane);
+            Marshal.FreeHGlobal(vPlane);
+
+            return rgbMat;
         }
     }
 }

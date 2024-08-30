@@ -15,6 +15,7 @@ namespace WpfSample.Model
             Rainbow,
             Inferno,
             Virdis,
+            RedHot
         }
 
         public static Mat? ApplyColorMap(Mat? mat, Type type)
@@ -34,6 +35,9 @@ namespace WpfSample.Model
                         break;
                     case Type.Virdis:
                         colormap = ColormapTypes.Viridis;
+                        break;
+                    case Type.RedHot:
+                        colormap = ColormapTypes.Hot;
                         break;
                 }
                 Mat result = new Mat();

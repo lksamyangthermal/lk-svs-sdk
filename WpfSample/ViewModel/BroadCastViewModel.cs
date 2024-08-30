@@ -27,6 +27,7 @@ namespace WpfSample.ViewModel
             Normal160,
             Single160,
             Single384,
+            Hik160,
             Dummy
         }
         [ObservableProperty]
@@ -64,6 +65,9 @@ namespace WpfSample.ViewModel
                 case PortType.Single384:
                     ManualDeviceInfo.Name = CameraName.Kir384Dual;
                     ManualDeviceInfo.Sens = Info.SensorType.IR_SENSOR_384;
+                    break;
+                case PortType.Hik160:
+                    ManualDeviceInfo.Name = CameraName.Hik160Dual;
                     break;
                 case PortType.Dummy:
                     ManualDeviceInfo.Name = CameraName.Dummy;
