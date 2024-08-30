@@ -43,7 +43,7 @@ namespace WpfSample.Model
         {
             if (mat == null) return null;
             Mat matNorm = new Mat();
-            Cv2.Normalize(mat, matNorm, 0, 255, NormTypes.MinMax, MatType.CV_8UC1);
+            Cv2.Normalize(mat, matNorm, 0, 255, NormTypes.MinMax, MatType.CV_8U);
 
             return matNorm;
         }
@@ -165,9 +165,9 @@ namespace WpfSample.Model
             Marshal.Copy(yv12Buffer, ySize, vPlane, uvSize); // V 평면이 먼저 있음
             Marshal.Copy(yv12Buffer, ySize + uvSize, uPlane, uvSize); // 그 다음에 U 평면이 있음
 
-            Mat yMat = new Mat(height, width, MatType.CV_8UC1, yPlane);
-            Mat uMat = new Mat(height / 2, width / 2, MatType.CV_8UC1, uPlane);
-            Mat vMat = new Mat(height / 2, width / 2, MatType.CV_8UC1, vPlane);
+            Mat yMat = Mat.FromPixelData(height, width, MatType.CV_8UC1, yPlane);
+            Mat uMat = Mat.FromPixelData(height / 2, width / 2, MatType.CV_8UC1, uPlane);
+            Mat vMat = Mat.FromPixelData(height / 2, width / 2, MatType.CV_8UC1, vPlane);
 
             // U, V 평면을 업샘플링
             Mat uMatResized = new Mat();

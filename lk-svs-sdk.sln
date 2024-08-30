@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{181A44BE-A4B2-48ED-8F9B-56BE995BE8C1}"
 	ProjectSection(SolutionItems) = preProject
 		Library\KIRSharp.dll = Library\KIRSharp.dll
-		Library\OpenCvSharpExtern.dll = Library\OpenCvSharpExtern.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A6390660-9266-473C-B7E6-D1FA9DB56651}"
@@ -16,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsSample", "WinFormsSample\WinFormsSample.csproj", "{07672D2D-A213-4F54-B834-8336E347E097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsSample", "WinFormsSample\WinFormsSample.csproj", "{07672D2D-A213-4F54-B834-8336E347E097}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

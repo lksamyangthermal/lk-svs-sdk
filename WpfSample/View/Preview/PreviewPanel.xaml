@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" MinWidth="320">
                 <Grid HorizontalAlignment="Right" ZIndex="1" Opacity="0.8">
-                    <local:PaletteBar DataContext="{Binding DeviceHandler.SelectedDevice }" HorizontalAlignment="Right" Height="{Binding ElementName=MainImage, Path=ActualHeight}"/>
+                    <local:PaletteBar DataContext="{Binding DeviceHandler.SelectedDevice }" HorizontalAlignment="Right"/>
                 </Grid>
                 <StackPanel DockPanel.Dock="Top" ZIndex="1" Orientation="Horizontal">
                     <TextBlock Margin="5" FontWeight="Bold" Text="Max :"/>

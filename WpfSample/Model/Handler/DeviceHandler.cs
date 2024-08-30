@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static KIRSharp.Broadcast;
 using System.Collections.ObjectModel;
+using static KIRSharp.Broadcast.Info;
 
 namespace WpfSample.Model.Handler
 {
@@ -38,17 +39,22 @@ namespace WpfSample.Model.Handler
 
         private ICamera CreateCamera(Info info)
         {
-            switch (info.Name)
+            switch (info.Sens)
             {
-                case CameraName.Kir80Single:
-                case CameraName.Kir160Dual:
-                case CameraName.Kir384Dual:
+                case SensorType.IR_SENSOR_80:
+                case SensorType.IR_SENSOR_80_SHUTTER:
+                case SensorType.IR_SENSOR_160:
+                case SensorType.IR_SENSOR_256_IRAY:
+                case SensorType.IR_SENSOR_256_HIK:
+                case SensorType.IR_SENSOR_384:
+                case SensorType.IR_SENSOR_384_IRAY:
+                case SensorType.IR_SENSOR_384_I3:
                     return new UdpCamera(info, SelectedFpsThermal, SelectedFpsCmos);
-                case CameraName.Hik160Dual:
+                case SensorType.HIK_160:
                     return new HikCamera(info);
-                case CameraName.Dummy:
+                case SensorType.Unknown:
                 default:
-                    return new DummyCamera(info);
+                    return null;
             }
         }
 

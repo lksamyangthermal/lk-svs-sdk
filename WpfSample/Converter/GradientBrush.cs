@@ -35,6 +35,9 @@ namespace WpfSample.Converter
                     case PseudoColor.Type.Virdis:
                         gradientBrush = SetGradientBrush(Virdis);
                         break;
+                    case PseudoColor.Type.RedHot:
+                        gradientBrush = SetGradientBrush(RedHot);
+                        break;
 
                     default:
                         break;
@@ -74,5 +77,6 @@ namespace WpfSample.Converter
         private string[] Jet = { "#000189", "#0090FF", "#81FF7C", "#FF7500", "#8F0001" };
         private string[] Inferno = { "#020108", "#5E126E", "#BD3853", "#F88B0B", "#F5FA96" };
         private string[] Virdis = { "#45085B", "#38568C", "#1F928B", "#50C46A", "#EFE51C" };
+        private string[] RedHot = { "#030000", "#A90100", "#FE4400", "#FFDC01", "#FEFFF0" };
     }
 }
