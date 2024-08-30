@@ -49,11 +49,6 @@ namespace WpfSample.ViewModel
         public BroadCastViewModel() 
         {
             _ = FindBroadcastCameraAsync();
-
-            // Test
-            ManualDeviceInfo.Ip = "192.168.10.64";
-            ManualDeviceInfo.Port = "8000";
-            SelectedPort = PortType.Hik160;
         }
 
         [RelayCommand]
