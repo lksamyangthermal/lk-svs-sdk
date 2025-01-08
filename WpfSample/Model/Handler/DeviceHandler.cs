@@ -1,16 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
-using KIRSharp.Camera;
 using KIRSharp;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static KIRSharp.Broadcast;
 using System.Collections.ObjectModel;
-using static KIRSharp.Broadcast.Info;
+using System.Diagnostics;
+using static KIRSharp.Info;
 
 namespace WpfSample.Model.Handler
 {
@@ -37,30 +29,56 @@ namespace WpfSample.Model.Handler
 
         }
 
-        private ICamera CreateCamera(Info info)
+        private ICamera? CreateCamera(Info info, string rtspId, string rtspPassword)
         {
             switch (info.Sens)
             {
                 case SensorType.IR_SENSOR_80:
                 case SensorType.IR_SENSOR_80_SHUTTER:
                 case SensorType.IR_SENSOR_160:
+                    return new UdpCamera(info);
+
                 case SensorType.IR_SENSOR_256_IRAY:
                 case SensorType.IR_SENSOR_256_HIK:
                 case SensorType.IR_SENSOR_384:
                 case SensorType.IR_SENSOR_384_IRAY:
                 case SensorType.IR_SENSOR_384_I3:
-                    return new UdpCamera(info, SelectedFpsThermal, SelectedFpsCmos);
+                    {
+                        try
+                        {
+                            var camera = new UdpCamera(info, rtspId, rtspPassword);
+                            return camera;
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Debug.WriteLine("CreateCamera", $"Cannot add device, {ex.Message}");
+                            return null;
+                        }
+                    }
+
+                case SensorType.HIK_96:
                 case SensorType.HIK_160:
-                    return new HikCamera(info);
+                    {
+                        try
+                        {
+                            var camera = new HikCamera(info, rtspId, rtspPassword);
+                            return camera;
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Debug.WriteLine("CreateCamera", $"Cannot add device {ex.Message}");
+                            return null;
+                        }
+                    }
                 case SensorType.Unknown:
                 default:
                     return null;
             }
         }
 
-        public void ConnectDevice(Info info)
+        public void ConnectDevice(Info info, string? id = null, string? password = null)
         {
-            SelectedDevice = new Device(CreateCamera(info));
+            SelectedDevice = new Device(CreateCamera(info, id, password));
         }
     }
 }

@@ -2,11 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using KIRSharp;
 using KIRSharp.Camera;
-using static KIRSharp.Broadcast;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Windows;
 using WpfSample.Model.Handler;
 
 namespace WpfSample.ViewModel
@@ -16,11 +14,11 @@ namespace WpfSample.ViewModel
         [ObservableProperty] 
         private DeviceHandler _deviceHandler = DeviceHandler.Instance;
         [ObservableProperty]
-        private Broadcast.Info _selectedDeviceInfo;
+        private Info _selectedDeviceInfo;
         [ObservableProperty]
-        private Broadcast.Info _manualDeviceInfo = new();
+        private Info _manualDeviceInfo = new();
         [ObservableProperty]
-        private ObservableCollection<Broadcast.Info> _broadcastDeviceInfos = new ();
+        private ObservableCollection<Info> _broadcastDeviceInfos = new ();
 
         public enum PortType
         {

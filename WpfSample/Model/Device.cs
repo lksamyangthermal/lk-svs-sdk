@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KIRSharp.Utils;
 using OpenCvSharp;
 
 namespace WpfSample.Model
@@ -128,44 +129,9 @@ namespace WpfSample.Model
                     TempMax = Math.Round(tempMax + UserOffset, 2);
                     TempAvr = Math.Round(tempAvr + UserOffset, 2);
 
-                    var pseudoColorTask = ApplyPseudoColorAsync(MatRaw);
-                    ThermalPreview = pseudoColorTask.Result;
+                    var mat = ApplyPseudoColorAsync(MatRaw);
+                    ThermalPreview = mat;
                 }
-                else if (frame.Type == IFrame.FrameType.Hik)
-                {
-                    ThermalPreview = ImageProcess.YV12ToRgb(frame.Bytes, frame.Width, frame.Height);
-                    //ThermalPreview = Cv2.ImDecode(frame.Bytes, ImreadModes.Color);
-
-                    //    using (var bitmap = new Bitmap(pFrameInfo.nWidth, pFrameInfo.nHeight, PixelFormat.Format24bppRgb))
-                    //    {
-                    //        BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
-                    //            ImageLockMode.WriteOnly, bitmap.PixelFormat);
-                    //        Marshal.Copy(buffer, 0, bmpData.Scan0, buffer.Length);
-                    //        bitmap.UnlockBits(bmpData);
-
-                    //        //BitmapImage bitmapImage = BitmapToBitmapImage(bitmap);
-                    //        //Dispatcher.Invoke(() =>
-                    //        //{
-                    //        //    LiveImage.Source = bitmapImage;
-                    //        //});
-                    //    }
-                    //}
-
-                    //var hikFrame = frame as HikCamera;
-                    //Image image = (Image)null;
-                    //using (MemoryStream memoryStream = new MemoryStream(buffer))
-                    //{
-                    //    Image bitmap = Image.FromStream((Stream)memoryStream);
-                    //    image = hikFrame.DeepCopyBitmap(bitmap);
-                    //    bitmap.Dispose();
-                    //}
-                }
-                else if (frame.Type == IFrame.FrameType.Rtsp)
-                {
-
-                }
-
-
             }
             catch (Exception ex)
             {
@@ -173,11 +139,10 @@ namespace WpfSample.Model
             }
         }
 
-        private Task<Mat> ApplyPseudoColorAsync(Mat matRaw)
+        private Mat? ApplyPseudoColorAsync(Mat matRaw)
         {
             Mat matNorm = ImageProcess.ConvertToRgb(matRaw);
             var matPseudoColor = PseudoColor.ApplyColorMap(matNorm, PseudoColorType);
-            Mat resizedThermal = new Mat();
 
             try
             {
@@ -192,23 +157,15 @@ namespace WpfSample.Model
                     rechannelThermal = matPseudoColor;
                 }
 
-                if (Camera.FrameBufferCmos.FrameWidth > 0 && Camera.FrameBufferCmos.FrameHeight > 0)
-                {
-                    Cv2.Resize(rechannelThermal, resizedThermal, new OpenCvSharp.Size(Camera.FrameBufferCmos.FrameWidth, Camera.FrameBufferCmos.FrameHeight));
-                }
-                else
-                {
-                    resizedThermal = rechannelThermal.Clone();
-                }
+                return rechannelThermal;
 
             }
             catch (Exception ex)
             {
                 string message = $"ApplyPseudoColorAsync: {ex.Message}";
                 Debug.WriteLine(message);
+                return null;
             }
-
-            return Task.FromResult(resizedThermal);
         }
 
         private async Task ProcessCmosFrame(IFrame frame)

@@ -12,7 +12,7 @@ namespace WinFormsSample
     public partial class MainForm : Form
     {
         private BroadCastViewModel _broadcastViewModel;
-        private Broadcast.Info _selectedDeviceInfo;
+        private Info _selectedDeviceInfo;
 
         private ControlViewModel _controlViewModel;
 
@@ -36,7 +36,7 @@ namespace WinFormsSample
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                foreach (Broadcast.Info newItem in e.NewItems)
+                foreach (Info newItem in e.NewItems)
                 {
                     var info = new string[] { newItem.Version, newItem.Ip };
                     var item = new ListViewItem(info)
@@ -48,7 +48,7 @@ namespace WinFormsSample
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                foreach (Broadcast.Info oldItem in e.OldItems)
+                foreach (Info oldItem in e.OldItems)
                 {
                     foreach (ListViewItem item in listView_Broadcast.Items)
                     {
@@ -68,7 +68,7 @@ namespace WinFormsSample
         {
             if (e.IsSelected)
             {
-                _selectedDeviceInfo = e.Item.Tag as Broadcast.Info;
+                _selectedDeviceInfo = e.Item.Tag as Info;
                 label_SelectedDevice_Version.Text = _selectedDeviceInfo.Version;
                 label_SelectedDevice_Ip.Text = _selectedDeviceInfo.Ip;
                 label_SelectedDevice_Netmask.Text = _selectedDeviceInfo.NetMask;
