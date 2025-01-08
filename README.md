@@ -18,6 +18,7 @@ Working in visual studio 2022 and .NET8 environments
 - 2024-05-31    Fixing KIRSharp.dll bugs, KIRSharp updated to 2.0.1
 - 2024-06-19    Add a Winforms sample project, KIRSharp updated to 2.0.4
 - 2024-08-30    KIRSharp.dll updated to 2.1.0 - Support for older firmware cameras
+- 2025-01-08	KIRSharp.dll updated to 2.4.0 - Support for new cameras
 
 ### Docs
 - SVS-384TW2I Connect guide
